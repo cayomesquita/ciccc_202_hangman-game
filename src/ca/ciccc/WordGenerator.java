@@ -10,46 +10,25 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class WordGenerator {
-    private String word;
-    private String FILE_CITIES = "cities.txt";
-    private char hide = '-';
-    Path filePath = Paths.get(FILE_CITIES);
-    private char[] chars;
 
-    public WordGenerator() throws FileNotFoundException {
+    private static final String FILE_CITIES = "cities.txt";
+
+    private List<String> list;
+
+    public WordGenerator() throws IOException {
+        updateList();
+    }
+
+    public void updateList() throws IOException {
         Path path = Paths.get(FILE_CITIES);
         try (Stream<String> lines = Files.lines(path)) {
-            List<String> citiesList = lines.collect(Collectors.toList());
-            int randomIndex = Double.valueOf(Math.random() * citiesList.size()).intValue();
-            setWord(citiesList.get(randomIndex));
-            //return citiesList.get(randomIndex);
-        } catch (IOException e) {
-            System.out.println(e);
+            this.list = lines.collect(Collectors.toList());
         }
     }
 
-    public String getWord() {
-        return word;
+    public String randomWord() {
+        int randomIndex = Double.valueOf(Math.random() * this.list.size()).intValue();
+        return this.list.get(randomIndex);
     }
 
-    public void setWord(String word) {
-        this.word = word;
-    }
-
-    public String hiddenWord() {
-        String word = this.word;
-        String hiddenWord = "";
-        chars = new char[word.length()];
-        for (int i = 0; i < word.length(); i++) {
-            chars[i] = word.charAt(i);
-        }
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] != ' ') {
-                hiddenWord += "_ ";
-            } else {
-                hiddenWord += " ";
-            }
-        }
-        return hiddenWord;
-    }
 }

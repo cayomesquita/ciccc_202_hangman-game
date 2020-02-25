@@ -1,13 +1,11 @@
 package ca.ciccc;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Driver {
-    public static void main(String[] args) throws FileNotFoundException {
-        WordGenerator wordGenerator = new WordGenerator();
-
-        System.out.println(wordGenerator.getWord());
-        System.out.println(wordGenerator.hiddenWord());
-
+    public static void main(String[] args) throws IOException {
+        HangmanGame game = new HangmanGame();
+        game.start();
     }
 }
