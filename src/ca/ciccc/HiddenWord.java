@@ -16,12 +16,16 @@ public class HiddenWord {
         this.word = word.trim().toCharArray();
         this.hiddenWord = new char[this.word.length];
         for (int index = 0; index < this.hiddenWord.length; index++) {
+            //this.hiddenWord[index] = Character.isSpaceChar(this.word[index]) ? CHAR_SPACE : CHAR_UNDERSCORE;            }
             this.hiddenWord[index] = Character.isSpaceChar(this.word[index]) ? CHAR_SPACE : CHAR_UNDERSCORE;
         }
     }
 
     public String getHiddenWord() {
-        return new String(this.hiddenWord);
+        return Stream.of(this.hiddenWord)
+                .map(item -> {return String.valueOf(item);})
+                .collect(Collectors.joining("."));
+        //return new String(this.hiddenWord);
     }
 
     public String getWord() {
