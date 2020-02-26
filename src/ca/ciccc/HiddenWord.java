@@ -1,6 +1,9 @@
 package ca.ciccc;
 
+import javafx.print.Collation;
+
 import java.util.Arrays;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,10 +25,10 @@ public class HiddenWord {
     }
 
     public String getHiddenWord() {
-        return Stream.of(this.hiddenWord)
-                .map(item -> {return String.valueOf(item);})
-                .collect(Collectors.joining("."));
-        //return new String(this.hiddenWord);
+        return new String(this.hiddenWord).chars()
+                .mapToObj(i -> (char) i)
+                .map(String::valueOf)
+                .collect(Collectors.joining(" "));
     }
 
     public String getWord() {
